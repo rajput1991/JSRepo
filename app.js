@@ -43,6 +43,12 @@ class UI {
         document.querySelector('#author').value = '';
         document.querySelector('#isbn').value = '';
     }
+    static deleteBook(el) {
+        if (el.classList.contains('delete')) {
+            el.parentElement.remove();
+
+        }
+    }
 }
 
 
@@ -70,5 +76,12 @@ document.querySelector('#book-form').addEventListener('submit', (e) => {
     UI.clearFields();
 
 
+
+});
+
+// Removing a Book , Event handling
+document.querySelector('#book-list').addEventListener('click', (e) => {
+    console.log(e.target);
+    UI.deleteBook(e.target);
 
 });
