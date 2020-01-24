@@ -57,6 +57,9 @@ document.querySelector('#book-form').addEventListener('submit', (e) => {
     const book = new Book(title, author, isbn);
     console.log(book);
 
+    // Add book to UI table
+    UI.addBookToList(book);
+
 
     
 });
