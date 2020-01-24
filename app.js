@@ -38,6 +38,18 @@ class UI {
         list.appendChild(row);
     }
 
+    static showAlert(message, className) {
+      //  <div class="alert alert-danger">Message to display</div> Implementation of this is below
+        const div = document.createElement('div');
+        // className can be danger(red), success(green) or info(blue)
+        div.className = 'alert alert-' + className;
+        div.appendChild(document.createTextNode(message));
+        // container is parent element
+        const container = document.querySelector('.container');
+        const form = document.querySelector('#book-form');
+        container.insertBefore(div, form);
+
+    }
     static clearFields() {
         document.querySelector('#title').value = '';
         document.querySelector('#author').value = '';
@@ -67,7 +79,8 @@ document.querySelector('#book-form').addEventListener('submit', (e) => {
     const isbn = document.querySelector('#isbn').value;
 
     if (title == '' || author == '' || isbn == '') {
-        alert("Please fill in all fields");
+       // alert("Please fill in all fields");
+        UI.showAlert('Please fill all the fields', 'danger');
     }
     else {
 
