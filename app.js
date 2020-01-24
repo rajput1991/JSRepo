@@ -16,9 +16,9 @@ class UI {
 
             },
             {
-                title: 'Book one',
-                author: 'Rahul',
-                isbn: 34649949
+                title: 'Book Two',
+                author: 'Rana',
+                isbn: 249485949
 
             }
         ]
@@ -42,3 +42,21 @@ class UI {
 
 // Display Books
 document.addEventListener("DOMContentLoaded", UI.displayBooks);
+
+
+// Adding a Book : Event Handling
+document.querySelector('#book-form').addEventListener('submit', (e) => {
+
+    // Prevent default submit , else book wont be logged on console.
+    e.preventDefault();
+    // Get form values
+    const title = document.querySelector('#title').value;
+    const author = document.querySelector('#author').value;
+    const isbn = document.querySelector('#isbn').value;
+
+    const book = new Book(title, author, isbn);
+    console.log(book);
+
+
+    
+});
