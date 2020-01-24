@@ -129,6 +129,7 @@ document.querySelector('#book-form').addEventListener('submit', (e) => {
         UI.addBookToList(book);
 
         // Add book to localstorage
+        // Local storage is just k-v, Go to console ->Application
         Store.addBook(book);
 
         // show success message
@@ -144,7 +145,11 @@ document.querySelector('#book-form').addEventListener('submit', (e) => {
 // Removing a Book , Event handling
 document.querySelector('#book-list').addEventListener('click', (e) => {
     console.log(e.target);
+   // Removing book from UI
     UI.deleteBook(e.target);
+     // Removing Book from UI local storage
+    // we need to delete based on isbn, e.target ->gives link we clicked
+    Store.removeBook(e.target.previousElementSibling.textContent);
     UI.showAlert('Book Removed', 'success');
 
 });
