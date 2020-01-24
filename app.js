@@ -95,6 +95,9 @@ document.querySelector('#book-form').addEventListener('submit', (e) => {
         // Add book to UI table, but it will go over reload because its not persisted
         UI.addBookToList(book);
 
+        // show success message
+        UI.showAlert('Book Added', 'success');
+
         // CLearing Fields once we click on Add button
         UI.clearFields();
     }
