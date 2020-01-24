@@ -5,24 +5,57 @@ class Book {
         this.isbn = isbn;
     }
 }
-class UI {
-    static displayBooks() {
-        const storeBooks = [
 
-            {
-                title: 'Book one',
-                author: 'Rahul',
-                isbn: 34649949
+class Store {
+    // Before we add to localstorage , we need to stringfy this and once we get from local
+    // storage we need to parse book from string verison
+    static getBooks() {
+        let books;
+        if (localStorage.getItem('books') == null) {
+            books = [];
+        }
+        else {
+            books = JSON.parse(localStorage.getItem('books'));
+        }
+        return books;
 
-            },
-            {
-                title: 'Book Two',
-                author: 'Rana',
-                isbn: 249485949
+    }
+    static addBook(book) {
+        const books = Store.getBooks();
+        books.push(book);
+        localStorage.setItem('books', JSON.stringify(books));
+
+    }
+    static removeBook(isbn) {
+        const books = Store.getBooks();
+        books.forEach((book, index) => {
+            if (book.isbn === isbn) {
+                books.splice(index, 1);
 
             }
-        ]
-        const books = storeBooks;
+        });
+        localStorage.setItem('books', JSON.stringify(books));
+    }
+}
+class UI {
+    static displayBooks() {
+        // const storeBooks = [
+
+        //     {
+        //         title: 'Book one',
+        //         author: 'Rahul',
+        //         isbn: 34649949
+
+        //     },
+        //     {
+        //         title: 'Book Two',
+        //         author: 'Rana',
+        //         isbn: 249485949
+
+        //     }
+        // ]
+        // const books = storeBooks;
+        const books = Store.getBooks();
         books.forEach(book => UI.addBookToList(book));
 
 
@@ -39,7 +72,7 @@ class UI {
     }
 
     static showAlert(message, className) {
-      //  <div class="alert alert-danger">Message to display</div> Implementation of this is below
+        //  <div class="alert alert-danger">Message to display</div> Implementation of this is below
         const div = document.createElement('div');
         // className can be danger(red), success(green) or info(blue)
         div.className = 'alert alert-' + className;
@@ -51,7 +84,7 @@ class UI {
         // vanish alert  in 3 sec because if you click on add book multiple times, many alerts comes in UI
         setTimeout(() => {
             document.querySelector('.alert').remove();
-            
+
         }, 3000);
 
     }
@@ -84,7 +117,7 @@ document.querySelector('#book-form').addEventListener('submit', (e) => {
     const isbn = document.querySelector('#isbn').value;
 
     if (title == '' || author == '' || isbn == '') {
-       // alert("Please fill in all fields");
+        // alert("Please fill in all fields");
         UI.showAlert('Please fill all the fields', 'danger');
     }
     else {
@@ -94,6 +127,9 @@ document.querySelector('#book-form').addEventListener('submit', (e) => {
 
         // Add book to UI table, but it will go over reload because its not persisted
         UI.addBookToList(book);
+
+        // Add book to localstorage
+        Store.addBook(book);
 
         // show success message
         UI.showAlert('Book Added', 'success');
