@@ -48,6 +48,11 @@ class UI {
         const container = document.querySelector('.container');
         const form = document.querySelector('#book-form');
         container.insertBefore(div, form);
+        // vanish alert  in 3 sec because if you click on add book multiple times, many alerts comes in UI
+        setTimeout(() => {
+            document.querySelector('.alert').remove();
+            
+        }, 3000);
 
     }
     static clearFields() {
